@@ -12,8 +12,8 @@ on:
 
 jobs: 
     on-push: #job name 
+        if: github.event_name == 'push'
         runs-on: ubuntu-latest
-
         steps: #steps to exicute in the job
             - name: "workflow in master push"
               run: echo "workflow in master push"
