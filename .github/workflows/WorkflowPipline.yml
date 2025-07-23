@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - master
-      
+
   pull_request:
     branches:
         - master
@@ -26,3 +26,10 @@ jobs:
     steps:
       - name: "Running on pull request"
         run: echo "Workflow triggered by pull request"
+        
+  on-workflow-dispatch:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 
+        run:
