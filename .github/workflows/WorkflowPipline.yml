@@ -33,7 +33,7 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ununtu-latest
     steps:
-      - name: "Running on pull request closed"
+      - name: "running on pull request closed"
         run: echo "Running on pull request closed"
 
   on-workflow-dispatch:
