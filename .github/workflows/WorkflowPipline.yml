@@ -6,24 +6,27 @@ on:
       - main
       - master
 
+  schedule:
+    - cron: "0 10 * * 4" # Every Thursday and Sunday at 10:00 UTC
+
   pull_request:
     branches:
-        - master
-
+      - master
     types:
-        [closed]
+      - closed
+
   workflow_dispatch:
 
-jobs: 
-  on-push: 
+jobs:
+  on-push:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: "Running on push"
         run: echo "Workflow triggered by push"
 
-  on-pull-request: 
-    if: github.event_name == 'pull_request'
+  on-pull-request:
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
       - name: "Running on pull request"
@@ -31,14 +34,21 @@ jobs:
 
   on-pull-request-closed:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ununtu-latest
+    runs-on: ubuntu-latest # ✅ fixed typo
     steps:
-      - name: "running on pull request closed"
+      - name: "Running on pull request closed"
         run: echo "Running on pull request closed"
 
   on-workflow-dispatch:
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
-      - name: " running in workflow dispatch"
-        run: echo "runnig in workflow dispatch"
+      - name: "Running in workflow dispatch"
+        run: echo "Running in workflow dispatch"
+
+  on-schedule:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Running on schedule"
+        run: echo "Workflow triggered by schedule"
